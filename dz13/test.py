@@ -1,5 +1,5 @@
 import unittest
-from main import Category, Product
+from dz13.main import Category, Product
 
 class TestCategoryAndProduct(unittest.TestCase):
     def setUp(self):
