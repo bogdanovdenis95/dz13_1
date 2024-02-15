@@ -1,36 +1,50 @@
 class Category:
     total_categories = 0
-    total_unique_products = set()
+    categories = set()
 
-    def __init__(self, name, description):
+    def __init__(self, name):
         self.name = name
-        self.description = description
-        self.products = []
-        Category.total_categories += 1
+        self.__products = []  # Список товаров в категории
+        Category.categories.add(name)
+        Category.total_categories = len(Category.categories)
 
     def add_product(self, product):
-        self.products.append(product)
-        Category.total_unique_products.add(product.name)
+        self.__products.append(product)
+
+    def get_products(self):
+        return self.__products
+
 
 
 class Product:
-    def __init__(self, name, description, price, quantity):
+    total_unique_products = 0
+
+    def __init__(self, name, price, quantity, category):
         self.name = name
-        self.description = description
         self.price = price
         self.quantity = quantity
+        self.category = category
+        Product.total_unique_products += 1
+        category.add_product(self)
 
 
+    @classmethod
+    def create_product(cls, name, price, quantity):
+        return cls(name, price, quantity)
 
-category1 = Category("Electronics", "Electronic devices")
-category2 = Category("Clothing", "Clothing items")
+    @property
+    def price(self):
+        return self.__price
 
-product1 = Product("Laptop", "High-performance laptop", 1500.0, 10)
-product2 = Product("T-shirt", "Cotton T-shirt", 20.0, 100)
+    @price.setter
+    def price(self, value):
+        if value > 0:
+            self.__price = value
+        else:
+            print("Ошибка: Цена должна быть больше нуля.")
 
-category1.add_product(product1)
-category2.add_product(product2)
+    @price.deleter
+    def price(self):
+        del self.__price
+        print("Атрибут 'price' удален.")
 
-
-print("Total categories:", Category.total_categories)
-print("Total unique products:", len(Category.total_unique_products))
