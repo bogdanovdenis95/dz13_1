@@ -1,17 +1,17 @@
 class Category:
     total_categories = 0
-    categories = set()
 
-    def __init__(self, name):
+    def __init__(self, name, description, products=None):
         self.name = name
-        self.__products = []  # Список товаров в категории
-        Category.categories.add(name)
-        Category.total_categories = len(Category.categories)
+        self.description = description
+        self.__products = products if products else []
+        Category.total_categories += 1
 
     def add_product(self, product):
         self.__products.append(product)
 
-    def get_products(self):
+    @property
+    def products(self):
         return self.__products
 
 
@@ -25,12 +25,13 @@ class Product:
         self.quantity = quantity
         self.category = category
         Product.total_unique_products += 1
-        category.add_product(self)
-
 
     @classmethod
-    def create_product(cls, name, price, quantity):
-        return cls(name, price, quantity)
+    def create_product(cls, name, price, quantity, category):
+        return cls(name, price, quantity, category)
+
+
+
 
     @property
     def price(self):

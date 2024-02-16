@@ -1,17 +1,29 @@
 import unittest
 from main import Category, Product
 
-class TestCategoryAndProduct(unittest.TestCase):
-    def setUp(self):
-        self.electronics = Category("Электроника")
 
-    def test_count_products_and_categories(self):
-        laptop = Product("Ноутбук", 1500, 10, self.electronics)  # Передаем аргумент 'category'
-        self.assertEqual(Category.total_categories, 1, "Неправильное количество категорий после добавления продукта")
+class TestCategory(unittest.TestCase):
+    def test_category_initialization_without_description(self):
 
-    def test_product_addition_with_same_name(self):
-        laptop1 = Product("Ноутбук", 1500, 10, self.electronics)  # Передаем аргумент 'category'
-        self.assertEqual(len(self.electronics.get_products()), 1, "Неправильное количество продуктов после добавления двух продуктов с одинаковым именем")
+        category = Category("Electronics", "Description")
+        self.assertEqual(category.name, "Electronics")
+        self.assertEqual(category.description, "Description")
+
+class TestProduct(unittest.TestCase):
+    def test_create_product_class_method(self):
+        category = Category("Электроника", "Товары электроники")
+        product = Product.create_product("Планшет", 1000.0, 5, category)
+        self.assertIsInstance(product, Product)
+
+
+    def test_product_initialization(self):
+
+        category = Category("Electronics", "Description")
+
+        product = Product("Laptop", 1500.0, 10, category)
+        self.assertEqual(product.name, "Laptop")
+        self.assertEqual(product.price, 1500.0)
+        self.assertEqual(product.quantity, 10)
 
 if __name__ == '__main__':
     unittest.main()
