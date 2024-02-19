@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Python
 __pycache__/
 *.pyc
@@ -13,3 +14,4 @@ venv/
 ../unittest_proj/
 ../venv/
 
+.idea/
