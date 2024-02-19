@@ -1,1 +1,17 @@
+<<<<<<< HEAD
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Environment
+venv/
+
+# Additional directories
+../kursach/
+../pytest_proj/
+../unittest_proj/
+../venv/
+
 .idea/
